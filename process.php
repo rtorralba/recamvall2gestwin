@@ -24,8 +24,10 @@ foreach ($inFiles as $file) {
     $movimiento = new Movimiento($tipoMovimiento, $csv->data[0]);
     $csvMovimiento = $movimiento->toCsv();
     $csvLinea = '';
+    $nroLinea = 1;
     foreach ($csv->data as $row) {
-        $lineaMovimiento = new LineaMovimiento($row);
+        $lineaMovimiento = new LineaMovimiento($row, $nroLinea);
+        $nroLinea++;
         $csvLinea .= $lineaMovimiento->toCsv();
     }
 
