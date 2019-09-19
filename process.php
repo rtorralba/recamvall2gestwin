@@ -1,5 +1,6 @@
 <?php
 
+use App\ValueObjects\GrupoLineaMovimiento;
 use App\ValueObjects\Movimiento;
 use App\ValueObjects\LineaMovimiento;
 
@@ -31,6 +32,9 @@ foreach ($inFiles as $file) {
         $csvLinea .= $lineaMovimiento->toCsv();
     }
 
+    $grupoLineaMovimiento = new GrupoLineaMovimiento($csv->data[0]);
+    $csvGrupoLineaMovimiento = $grupoLineaMovimiento->toCsv();
+
     $outFolder = $outProcessedFolder.'/'.$fileName;
 
     if (!is_dir($outFolder)) {
@@ -39,4 +43,5 @@ foreach ($inFiles as $file) {
 
     file_put_contents($outFolder.'/Movimiento.txt', $csvMovimiento);
     file_put_contents($outFolder.'/LineaMovimiento.txt', $csvLinea);
+    file_put_contents($outFolder.'/GrupoLineaMovimiento.txt', $csvGrupoLineaMovimiento);
 }

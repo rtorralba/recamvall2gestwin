@@ -5,16 +5,16 @@ namespace App\ValueObjects;
 class Movimiento
 {
     public $Ejercicio = '';
-    public $nroOperacion = '';
+    public $nroOperacion;
     public $tipoMovimiento = '';
     public $propietario = '';
     public $serie = '';
     public $nroDocumento = '';
-    public $UUID = '';
+    public $UUID;
     public $fecha = '';
     public $fechaAplicacion = '';
-    public $fechaEmision = '';
-    public $fechaAuxiliar = '';
+    public $fechaEmision;
+    public $fechaAuxiliar;
     public $GrupoFacturacion = '';
     public $RegistroAuxiliar = '';
     public $CodigoVendedor = '';
@@ -24,52 +24,63 @@ class Movimiento
     public $ejercicioFactura = '';
     public $propietarioFactura = '';
     public $serieFactura = '';
-    public $nroFactura = '';
-    public $noFacturar = '';
-    public $facturado = '';
-    public $traspasado = '';
-    public $origen = '';
-    public $EjercicioOrigen = '';
-    public $NroOperacionOrigen = '';
+    public $nroFactura = 0;
+    public $noFacturar = false;
+    public $facturado = false;
+    public $traspasado = false;
+    public $origen = 0;
+    public $EjercicioOrigen;
+    public $NroOperacionOrigen;
     public $NroDocumentoProp = '';
-    public $entregaACuenta = '';
-    public $entregaEfectivo = '';
+    public $entregaACuenta = 0;
+    public $entregaEfectivo = 0;
     public $codigoTransportista = '';
-    public $portes = '';
+    public $portes;
     public $codigoFormaCobro = '';
     public $OrganismoPublico = '';
-    public $Situación = '';
-    public $descripción = '';
+    public $Situacion = 0;
+    public $descripcion = '';
     public $CampoLibre1 = '';
     public $CampoLibre2 = '';
     public $CampoLibre3 = '';
     public $CampoLibre4 = '';
-    public $CampoLibre5 = '';
     public $TipoVentaPeriodica = '';
-    public $Creado = '';
-    public $Revisado = '';
-    public $FechaEnvioPorCorreo = '';
+    public $Creado;
+    public $Revisado = false;
+    public $FechaEnvioPorCorreo;
     public $Anotación = '';
-    public $Firma = '';
+    public $Firma;
 
     public function __construct($documentType, $data)
     {
         $date = \DateTime::createFromFormat('d/m/Y', $data['FECHA']);
         $this->tipoMovimiento = $documentType;
 
-        $this->Ejercicio = date_format($date, 'Y');
-        $this->nroDocumento = $data['NUMERO'];
+        $this->Ejercicio = (int) date_format($date, 'Y');
+        $this->nroDocumento = (int) $data['NUMERO'];
         $this->fecha = $data['FECHA'];
+        $this->fechaAplicacion = $data['FECHA'];
+        $this->Creado = $data['FECHA'].' 00:00:00';
     }
 
     public function toCsv()
     {
         $csv = "";
         foreach ($this as $key => $value) {
+            if ($key == 'fecha' || $key == 'fechaAplicacion' || $key == 'Creado') {
+                    $csv .= $value.',';
+                    continue;
+            }
             if ($key != 'Firma') {
-                $csv .= $value.',';
+                if (gettype($value) == 'string') {
+                    $csv .= "'${value}',";
+                } elseif (gettype($value) == 'boolean') {
+                    $csv .= $value ? 'True,' : 'False,';
+                } else {
+                    $csv .= $value.',';
+                }
             } else {
-                $csv .= $value."\n";
+                $csv .= "${value}\n";
             }
         }
 
