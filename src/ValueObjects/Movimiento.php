@@ -5,7 +5,7 @@ namespace App\ValueObjects;
 class Movimiento
 {
     public $Ejercicio = '';
-    public $nroOperacion;
+    public $nroOperacion = 1;
     public $tipoMovimiento = '';
     public $propietario = '';
     public $serie = '';
@@ -80,7 +80,7 @@ class Movimiento
                     $csv .= $value.',';
                 }
             } else {
-                $csv .= "${value}\n";
+                $csv .= "${value}\r\n";
             }
         }
 

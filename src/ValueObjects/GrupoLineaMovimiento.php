@@ -5,7 +5,7 @@ namespace App\ValueObjects;
 class GrupoLineaMovimiento
 {
     public $Ejercicio;
-    public $nroOperacion;
+    public $nroOperacion = 1;
     public $NroPagina = 0;
     public $CodigoGrupo = '';
     public $descripcion = '';
@@ -34,7 +34,7 @@ class GrupoLineaMovimiento
                     $csv .= $value.',';
                 }
             } else {
-                $csv .= "'${value}'\n";
+                $csv .= "'${value}'\r\n";
             }
         }
 
