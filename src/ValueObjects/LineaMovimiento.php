@@ -11,12 +11,13 @@ class LineaMovimiento
     public $fecha;
     public $fechaAplicacion;
     public $nroRegistro;
-    public $AsignacionOrigen = 0;
-    public $tipoMovimientoOrige;
+    public $AsignacionOrigen = 2;
+    public $tipoMovimientoOrige = 0;
     public $ejercicioOrigen;
     public $nroOperacionOrigen;
     public $nroRegistroOrigen;
-    public $UIDArticulo;
+    public $UID;
+    public $Articulo;
     public $codigoArticulo = '';
     public $codigoClaseA = '';
     public $codigoClaseB = '';
@@ -25,8 +26,8 @@ class LineaMovimiento
     public $nroSerie = '';
     public $CampoLibre1 = '';
     public $CampoLibre2 = '';
-    public $CampoLibre3 = '';
-    public $CampoLibre4 = '';
+    public $CampoLibre3;
+    public $CampoLibre4;
     public $descripcion = '';
     public $codigoAlmacen = '';
     public $Ubicacion = '';
@@ -43,7 +44,7 @@ class LineaMovimiento
     public $largo = 0;
     public $ancho = 0;
     public $alto = 0;
-    public $bultos = 0;
+    public $bultos;
     public $noCalcularMargen = false;
     public $TipoLinea = '';
     public $Oferta = false;
@@ -71,7 +72,7 @@ class LineaMovimiento
         $this->fechaAplicacion = $data['FECHA'];
         $this->codigoArticulo = $data['REFERENCIA'];
         $this->descripcion = $data['DENOMINACION'];
-        $this->cantidad = (int) $data['CANTIDAD'] * -1;
+        $this->cantidad = (int) $data['CANTIDAD'];
         $this->cantidadAjustada = (int) $data['CANTIDAD'];
         $this->precioDivisa = 0;
         $this->precio = (double) str_replace(',', '.', $data['PRECIO']);
