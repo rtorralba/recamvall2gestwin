@@ -7,7 +7,7 @@ class Movimiento
     public $Ejercicio = '';
     public $nroOperacion = 1;
     public $tipoMovimiento = '';
-    public $propietario = '';
+    public $propietario = '00001';
     public $serie = '';
     public $nroDocumento = '';
     public $UUID;
@@ -21,7 +21,7 @@ class Movimiento
     public $CodigoOperario = '';
     public $centroCoste = '';
     public $FormaEnvio = '';
-    public $ejercicioFactura = '';
+    public $ejercicioFactura = 0;
     public $propietarioFactura = '';
     public $serieFactura = '';
     public $nroFactura = 0;
@@ -32,8 +32,8 @@ class Movimiento
     public $EjercicioOrigen;
     public $NroOperacionOrigen;
     public $NroDocumentoProp = '';
-    public $entregaACuenta = 0;
-    public $entregaEfectivo = 0;
+    public $entregaACuenta;
+    public $entregaEfectivo;
     public $codigoTransportista = '';
     public $portes;
     public $codigoFormaCobro = '';
@@ -44,12 +44,13 @@ class Movimiento
     public $CampoLibre2 = '';
     public $CampoLibre3 = '';
     public $CampoLibre4 = '';
-    public $TipoVentaPeriodica = '';
+    public $CampoLibre5 = '';
+    public $TipoVentaPeriodica;
     public $Creado;
     public $Revisado = false;
-    public $FechaEnvioPorCorreo;
-    public $Anotación = '';
-    public $Firma;
+    public $FechaEnvioPorCorreo = false;
+    public $Anotación;
+    public $Firma = '';
 
     public function __construct($documentType, $data)
     {
@@ -71,16 +72,12 @@ class Movimiento
                     $csv .= $value.',';
                     continue;
             }
-            if ($key != 'Firma') {
-                if (gettype($value) == 'string') {
-                    $csv .= "'${value}',";
-                } elseif (gettype($value) == 'boolean') {
-                    $csv .= $value ? 'True,' : 'False,';
-                } else {
-                    $csv .= $value.',';
-                }
+            if (gettype($value) == 'string') {
+                $csv .= "'${value}',";
+            } elseif (gettype($value) == 'boolean') {
+                $csv .= $value ? 'True,' : 'False,';
             } else {
-                $csv .= "${value}\r\n";
+                $csv .= $value.',';
             }
         }
 
