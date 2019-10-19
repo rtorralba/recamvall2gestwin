@@ -58,7 +58,7 @@ class Movimiento
         $this->tipoMovimiento = $documentType;
 
         $this->Ejercicio = (int) date_format($date, 'Y');
-        $this->nroDocumento = (int) $data['NUMERO'];
+        $this->nroDocumento = (int) substr($data['NUMERO'], -8);
         $this->fecha = $data['FECHA'];
         $this->fechaAplicacion = $data['FECHA'];
         $this->Creado = $data['FECHA'].' 00:00:00';
