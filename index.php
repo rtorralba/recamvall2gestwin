@@ -22,8 +22,14 @@ if ($_POST) {
 ?>
 <h1>recamvall2gestwin</h1>
 <form method="POST" enctype="multipart/form-data">
+    <h3>1. Selecciona el archivo de Recamvall (PC_XXXXXXXXX.csv, PR_XXXXXXXXX.csv, AC_XXXXXXXXX.csv)</h3>
     <input type="file" name="file" required>
     <br>
     <br>
-    <input type="submit" name="Transformar">
+    <h3>2. Pulsa el botón "Transformar" y descarga el zip resultante</h3>
+    <input type="submit" name="Transformar" value="Transformar">
+    <h3>3. Descomprime el zip en tu ordenador</h3>
+    <h4>4. Importar el zip descomprimido con el programa gestwin.</h4>
+    <p>Compras -> Procesos-> Exportacion e Importacion de documentos de Compra</p>
+    <img src="/img/image.png"/>
 </form>
