@@ -52,7 +52,23 @@ class Process
         $zipper = new \Chumper\Zipper\Zipper;
         $filesToZip = glob($outFolder);
         $zipper->make($outZip)->add($filesToZip)->close();
+        self::deleteFiles($outFolder);
 
         return $outZip;
+    }
+
+    private static function deleteFiles($target)
+    {
+        if (is_dir($target)) {
+            $files = glob($target . '*', GLOB_MARK); //GLOB_MARK adds a slash to directories returned
+
+            foreach ($files as $file) {
+                self::deleteFiles($file);
+            }
+
+            rmdir($target);
+        } elseif (is_file($target)) {
+            unlink($target);
+        }
     }
 }

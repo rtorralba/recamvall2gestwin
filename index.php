@@ -14,10 +14,9 @@ if ($_POST) {
     move_uploaded_file($_FILES['file']['tmp_name'], $file);
 
     $filePath = Process::transform($file);
+    unlink($file);
 
     Utils::downloadZip($filePath);
-
-    unlink($file);
 }
 ?>
 <h1>recamvall2gestwin</h1>
