@@ -1,6 +1,7 @@
 {
     "require": {
-        "parsecsv/php-parsecsv": "^1.1"
+        "parsecsv/php-parsecsv": "^1.1",
+        "chumper/zipper": "^1.0"
     },
     "autoload": {
     "psr-4": {
