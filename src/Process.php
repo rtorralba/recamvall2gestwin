@@ -52,7 +52,6 @@ class Process
         $zipper = new \Chumper\Zipper\Zipper;
         $filesToZip = glob($outFolder);
         $zipper->make($outZip)->add($filesToZip)->close();
-        self::deleteFiles($outFolder);
 
         return $outZip;
     }
