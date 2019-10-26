@@ -53,21 +53,21 @@ class Process
         $filesToZip = glob($outFolder);
         $zipper->make($outZip)->add($filesToZip)->close();
 
+        self::deleteDir($outFolder);
+
         return $outZip;
     }
 
-    private static function deleteFiles($target)
+    private static function deleteDir($target)
     {
         if (is_dir($target)) {
-            $files = glob($target . '*', GLOB_MARK); //GLOB_MARK adds a slash to directories returned
+            $files = glob($target . '/*', GLOB_MARK); //GLOB_MARK adds a slash to directories returned
 
             foreach ($files as $file) {
-                self::deleteFiles($file);
+                unlink($file);
             }
 
             rmdir($target);
-        } elseif (is_file($target)) {
-            unlink($target);
         }
     }
 }

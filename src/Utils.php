@@ -15,6 +15,7 @@ class Utils
             header('Pragma: public');
             header('Content-Length: ' . filesize($file));
             readfile($file);
+            unlink($file);
             exit;
         }
     }
