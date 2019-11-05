@@ -2,11 +2,13 @@
 
 use App\Process;
 use App\Utils;
+use Symfony\Component\Translation\Tests\DataCollectorTranslatorTest;
 
 require_once __DIR__ . '/vendor/autoload.php';
 require_once('config.php');
 
 const APP_DIR = __DIR__;
+const DOCUMENT_NUMBER_DOCUMENT = APP_DIR.'/currentDocument.txt';
 
 if ($_POST) {
     $uploadsDir = APP_DIR . '/uploads/';
@@ -15,6 +17,10 @@ if ($_POST) {
 
     $filePath = Process::transform($file);
     unlink($file);
+
+    $currentNumber = (int) file_get_contents(DOCUMENT_NUMBER_DOCUMENT);
+    $nextNumber = $currentNumber + 1;
+    file_put_contents(DOCUMENT_NUMBER_DOCUMENT, $nextNumber);
 
     Utils::downloadZip($filePath);
 }
