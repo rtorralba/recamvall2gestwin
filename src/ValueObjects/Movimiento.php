@@ -7,7 +7,7 @@ class Movimiento
     public $Ejercicio = '';
     public $nroOperacion = 1;
     public $tipoMovimiento = '';
-    public $propietario = '00001';
+    public $propietario = '00149';
     public $serie = '';
     public $nroDocumento = '';
     public $UUID;
@@ -54,9 +54,9 @@ class Movimiento
 
     public function __construct($documentType, $data)
     {
-        $currentNumber = (int) file_get_contents(DOCUMENT_NUMBER_DOCUMENT);
-        $nextNumber = $currentNumber + 1;
-        $this->propietario = str_pad($nextNumber, 5, '0', STR_PAD_LEFT);
+        //$currentNumber = (int) file_get_contents(DOCUMENT_NUMBER_DOCUMENT);
+        //$nextNumber = $currentNumber + 1;
+        //$this->propietario = str_pad($nextNumber, 5, '0', STR_PAD_LEFT);
 
         $date = \DateTime::createFromFormat('d/m/Y', $data['FECHA']);
         $this->tipoMovimiento = $documentType;
