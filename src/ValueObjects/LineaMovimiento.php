@@ -66,6 +66,7 @@ class LineaMovimiento
     {
         $date = \DateTime::createFromFormat('d/m/Y', $data['FECHA']);
         $this->Ejercicio = (int) date_format($date, 'Y');
+        $this->nroOperacion = (int) substr($data['NUMERO'], -8);
         $this->nroLinea = $nroLinea;
         $this->nroSerie = $data['SERIE'];
         $this->fecha = $data['FECHA'];
@@ -78,7 +79,7 @@ class LineaMovimiento
         $this->precio = (double) str_replace(',', '.', $data['PRECIO']);
         $this->descuento = (double) $data['DESCUENTO1'];
         $this->ImporteBruto = (double) str_replace(',', '.', $data['IMP_LINEA']);
-        $this->ImporteDescuento = (double) $this->precio - $this->descuento;
+        $this->ImporteDescuento = (double) round($this->precio - ($this->precio * $this->descuento / 100), 2);
         $this->ImporteNeto = $this->ImporteBruto;
         $this->CodigoTipoIVA = (int) $data['POR_IVA'];
         $this->CuotaIVA = round($this->ImporteNeto * $this->CodigoTipoIVA / 100, 2);
