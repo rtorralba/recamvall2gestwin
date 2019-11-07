@@ -19,7 +19,7 @@ class Process
         if (strpos($file, 'PC_')) {
             $tipoMovimiento = 11;
         } elseif (strpos($file, 'PR_')) {
-            $tipoMovimiento = 13;
+            $tipoMovimiento = 10;
         } elseif (strpos($file, 'AC_')) {
             $tipoMovimiento = 12;
         }
