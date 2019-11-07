@@ -13,7 +13,12 @@ const DOCUMENT_NUMBER_DOCUMENT = APP_DIR.'/currentDocument.txt';
 if ($_POST) {
     $uploadsDir = APP_DIR . '/uploads/';
     $file = $uploadsDir.$_FILES['file']['name'];
+    $extension = Utils::getExtensionFromFile($file);
     move_uploaded_file($_FILES['file']['tmp_name'], $file);
+
+    if (in_array($extension, ['xls', 'xlsx'])) {
+        $file = Utils::saveCsvFromExcel($file);
+    }
 
     $filePath = Process::transform($file);
     unlink($file);
@@ -27,7 +32,7 @@ if ($_POST) {
 ?>
 <h1>recamvall2gestwin</h1>
 <form method="POST" enctype="multipart/form-data">
-    <h3>1. Selecciona el archivo de Recamvall (PC_XXXXXXXXX.csv, PR_XXXXXXXXX.csv, AC_XXXXXXXXX.csv)</h3>
+    <h3>1. Selecciona el archivo de Recamvall (PC_XXXXXXXXX.xlsx, PR_XXXXXXXXX.xlsx, AC_XXXXXXXXX.xlsx)</h3>
     <input type="file" name="file" required>
     <br>
     <br>

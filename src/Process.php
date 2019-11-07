@@ -5,6 +5,7 @@ namespace App;
 use App\ValueObjects\GrupoLineaMovimiento;
 use App\ValueObjects\Movimiento;
 use App\ValueObjects\LineaMovimiento;
+use App\Utils;
 
 class Process
 {
@@ -16,13 +17,7 @@ class Process
         $fileSegments = explode('/', $file);
         $fileName = $fileSegments[count($fileSegments) - 1];
 
-        if (strpos($file, 'PC_')) {
-            $tipoMovimiento = 11;
-        } elseif (strpos($file, 'PR_')) {
-            $tipoMovimiento = 10;
-        } elseif (strpos($file, 'AC_')) {
-            $tipoMovimiento = 12;
-        }
+        $tipoMovimiento = Utils::getTipoMovimiento($file);
 
         $movimiento = new Movimiento($tipoMovimiento, $csv->data[0]);
         $csvMovimiento = $movimiento->toCsv();
