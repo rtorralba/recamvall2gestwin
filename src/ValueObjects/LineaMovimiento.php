@@ -77,10 +77,9 @@ class LineaMovimiento
         $this->cantidadAjustada = (int) $data['CANTIDAD'];
         $this->precioDivisa = 0;
         $this->precio = (double) str_replace(',', '.', $data['PRECIO']);
-        $descuento = (double) $data['DESCUENTO1'];
-        $this->descuento = round($this->precio * $descuento / 100, 2);
+        $this->descuento = (double) $data['DESCUENTO1'];
         $this->ImporteBruto = (double) $this->precio * $this->cantidad;
-        $this->ImporteDescuento = (double) round($this->ImporteBruto - ($this->ImporteBruto * $descuento / 100), 2);
+        $this->ImporteDescuento = (double) round($this->ImporteBruto - ($this->ImporteBruto * $this->descuento / 100), 2);
         $this->ImporteNeto = $this->ImporteBruto - $this->ImporteDescuento;
         $this->CodigoTipoIVA = (int) $data['POR_IVA'];
         $this->CuotaIVA = round($this->ImporteNeto * $this->CodigoTipoIVA / 100, 2);
