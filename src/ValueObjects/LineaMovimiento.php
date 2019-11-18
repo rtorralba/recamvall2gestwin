@@ -85,14 +85,14 @@ class LineaMovimiento
         $this->CuotaIVA = round($this->ImporteNeto * $this->CodigoTipoIVA / 100, 2);
         $this->CuotaRE = 0;
         $this->PrecioIVA = round($this->precio + ($this->precio * $this->CodigoTipoIVA / 100), 2);
-        $this->ImporteTotal = $this->ImporteNeto + $this->CuotaIVA;
+        $this->ImporteTotal = $data['IMP_TOTAL'];
     }
 
     public function toCsv()
     {
         $csv = "";
         foreach ($this as $key => $value) {
-            if ($key == 'fecha' || $key == 'fechaAplicacion') {
+            if ($key == 'fecha' || $key == 'fechaAplicacion' || $key == 'ImporteTotal') {
                     $csv .= $value.',';
                     continue;
             }
