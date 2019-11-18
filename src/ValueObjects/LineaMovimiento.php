@@ -66,7 +66,7 @@ class LineaMovimiento
     {
         $date = \DateTime::createFromFormat('d/m/Y', $data['FECHA']);
         $this->Ejercicio = (int) date_format($date, 'Y');
-        $this->nroOperacion = (int) substr($data['NUMERO'], -8);
+        //$this->nroOperacion = (int) substr($data['NUMERO'], -8);
         $this->nroLinea = $nroLinea;
         $this->nroSerie = $data['SERIE'];
         $this->fecha = $data['FECHA'];
@@ -83,10 +83,10 @@ class LineaMovimiento
         $this->ImporteNeto = $this->ImporteBruto - $this->ImporteDescuento;
         switch ((int) $data['POR_IVA']) {
             case 4:
-                $this->CodigoTipoIVA = 1;
+                $this->CodigoTipoIVA = 3;
                 break;
             case 10:
-                $this->CodigoTipoIVA = 1;
+                $this->CodigoTipoIVA = 2;
                 break;
             case 21:
                 $this->CodigoTipoIVA = 1;
