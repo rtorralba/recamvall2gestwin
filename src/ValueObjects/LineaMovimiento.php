@@ -79,20 +79,20 @@ class LineaMovimiento
         $this->precio = (double) str_replace(',', '.', $data['PRECIO']);
         $this->descuento = (double) $data['DESCUENTO1'];
         $this->ImporteBruto = (double) $this->precio * $this->cantidad;
-        $this->ImporteDescuento = (double) round($this->ImporteBruto - ($this->ImporteBruto * $this->descuento / 100), 2);
+        $this->ImporteDescuento = (double) round($this->ImporteBruto * $this->descuento / 100, 2);
         $this->ImporteNeto = $this->ImporteBruto - $this->ImporteDescuento;
         $this->CodigoTipoIVA = (int) $data['POR_IVA'];
         $this->CuotaIVA = round($this->ImporteNeto * $this->CodigoTipoIVA / 100, 2);
         $this->CuotaRE = 0;
         $this->PrecioIVA = round($this->precio + ($this->precio * $this->CodigoTipoIVA / 100), 2);
-        $this->ImporteTotal = $data['IMP_TOTAL'];
+        $this->ImporteTotal = $this->ImporteNeto + $this->CuotaIVA;
     }
 
     public function toCsv()
     {
         $csv = "";
         foreach ($this as $key => $value) {
-            if ($key == 'fecha' || $key == 'fechaAplicacion' || $key == 'ImporteTotal') {
+            if ($key == 'fecha' || $key == 'fechaAplicacion') {
                     $csv .= $value.',';
                     continue;
             }
