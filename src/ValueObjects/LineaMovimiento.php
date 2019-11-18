@@ -81,10 +81,22 @@ class LineaMovimiento
         $this->ImporteBruto = (double) $this->precio * $this->cantidad;
         $this->ImporteDescuento = (double) round($this->ImporteBruto * $this->descuento / 100, 2);
         $this->ImporteNeto = $this->ImporteBruto - $this->ImporteDescuento;
-        $this->CodigoTipoIVA = (int) $data['POR_IVA'];
-        $this->CuotaIVA = round($this->ImporteNeto * $this->CodigoTipoIVA / 100, 2);
-        $this->CuotaRE = 0;
-        $this->PrecioIVA = round($this->precio + ($this->precio * $this->CodigoTipoIVA / 100), 2);
+        switch ((int) $data['POR_IVA']) {
+            case 4:
+                $this->CodigoTipoIVA = 1;
+                break;
+            case 10:
+                $this->CodigoTipoIVA = 1;
+                break;
+            case 21:
+                $this->CodigoTipoIVA = 1;
+                break;
+            default:
+                $this->CodigoTipoIVA = 1;
+                break;
+        }
+        $this->CuotaIVA = round($this->ImporteNeto * ((int) $data['POR_IVA']) / 100, 2);
+        $this->PrecioIVA = round($this->precio + ($this->precio * ((int) $data['POR_IVA']) / 100), 2);
         $this->ImporteTotal = $this->ImporteNeto + $this->CuotaIVA;
     }
 
