@@ -67,6 +67,11 @@ class Movimiento
         $this->fecha = $data['FECHA'];
         $this->fechaAplicacion = $data['FECHA'];
         $this->Creado = $data['FECHA'].' 00:00:00';
+
+        // Presupuesto
+        if ($documentType == 13) {
+            $this->propietario = '02055';
+        }
     }
 
     public function toCsv()
